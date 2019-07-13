@@ -12,7 +12,6 @@ library(AICcmodavg)
 library(lmtest)
 library(heplots) # partial r2
 library(weights) # weighted correlation
-library(DAAG)
 
 # Plotting Libraries
 library(ggplot2)
@@ -43,17 +42,7 @@ shapiro.test(resid(lm4.1)) # Violated
 cor(data$Mass_Fraction_N,data$Delta_15N, use="complete.obs")
 
 ########################################################################
-# Validate the models
 
-cv.lm(data = data, lm3, m=3, dots = 
-        FALSE, seed=29, plotit=TRUE, printit=TRUE)
-
-cv.error<-cv.lm(data,lm3)
-cv.error$delta
-
-train(log_gut~Delta_13C+Delta_15N, method = "lm", data = data, trControl = trainControl(method = "LOOCV"))
-
-########################################################################
 # Plot
 # delta 13C~ delta 15N
 plot_fur=ggplot(data, aes(x=data$Delta_13C, y=data$Delta_15N)) +
